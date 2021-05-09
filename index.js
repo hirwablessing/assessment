@@ -9,7 +9,7 @@
  * isNegativeOrOdd(-2) -> true
  */
 const isNegativeOrOdd = (value) => {
-
+    return value%2!==0 || value<0 ? true : false
 }
 
 /**
@@ -23,7 +23,7 @@ const isNegativeOrOdd = (value) => {
  * isArray([0,3,6,9]); → true
  */
 const isArray = (value) => {
-
+    return Array.isArray(value) ? true : false
 }
 
 /**
@@ -37,7 +37,7 @@ const isArray = (value) => {
  * isObject([2,4,6,8]); → true
  */
 const isObject = (value) => {
-
+    return typeof value === 'object' ? true : false
 }
 
 /**
@@ -50,9 +50,12 @@ const isObject = (value) => {
  * reverseString('string') -> 'gnirts';
  */
 const reverseString = (str) => {
-
+    let newStr = ""
+    for (let char=str.length-1; char>=0; char--) {
+        newStr+=str[char]
+    }
+    return newStr
 }
-
 
 /**
  * Returns a new object with key and values switched
@@ -64,7 +67,11 @@ const reverseString = (str) => {
  * reverseObject({a: 1, b: true, z: []}) -> { 1: 'a', true: 'b', '': 'z' } 
  */
 const reverseObject = (object) => {
-
+    let newObject = {}
+    for (let key in object) {
+        newObject[object[key]] = key
+    }
+    return newObject
 }
 
 /**
@@ -80,7 +87,11 @@ const reverseObject = (object) => {
  * shallowClone[0] === users[0] → true
  */
 const clone = (value) => {
-
+    let newObject = []
+    for (let user in value) {
+        newObject.push(value[user])
+    }
+    return newObject
 }
 
 /**
@@ -95,7 +106,12 @@ const clone = (value) => {
  * indexOf([{},'22',null], 5); → -1
  */
 const indexOf = (array, value) => {
-
+    let result
+    for (let data in array) {
+        if (array[data] === value) {
+            return data
+        }
+    }
 }
 
 /**
@@ -399,5 +415,9 @@ const before = (count, func) => {
  * arrayFactory(4, square); -> [0, 1, 4, 9]
  */
 const arrayFactory = (length, processor) => {
-
+    let array = []
+    for (let i=0; i<length; i++) {
+        array.push(processor(i))
+    }
+    return array
 }
