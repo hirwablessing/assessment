@@ -160,7 +160,7 @@ const forEach = (array, cb) => {
  */
 const map = (array, cb) => {
   let arr = [];
-  for (var i = 0; i < array.length; i++)
+  for (let i = 0; i < array.length; i++)
     arr.push(cb(array[i], i, array));
   return arr;
 }
@@ -184,7 +184,7 @@ const map = (array, cb) => {
  */
 const filter = (collection, cb) => {
   let arr = [];
-  for (var i = 0; i < collection.length; i++) {
+  for (let i = 0; i < collection.length; i++) {
     if (cb.call(cb, collection[i], i, collection)) // .call control the value of the obj, in callback
       arr.push(collection[i]);
   }
@@ -312,7 +312,9 @@ const reduce = (array, cb, start) => {
  * flattenArrayDeep([2, [4, 6, [8]]]); → [2, 4, 6, 8]
  */
 const flattenArrayDeep = (array, result = []) => {
+  result = array.toString().trim().split(",")
 
+  return result
 }
 flattenArrayDeep([2, [4, 6, [8]]]);
 /**
@@ -466,5 +468,8 @@ const before = (count, func) => {
  * arrayFactory(4, square); -> [0, 1, 4, 9]
  */
 const arrayFactory = (length, processor) => {
-
+  let arr = [];
+    for (let i = 0; i < length; i++)
+      arr.push(processor(i));
+  return arr;
 }
