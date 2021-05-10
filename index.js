@@ -9,9 +9,11 @@
  * isNegativeOrOdd(-2) -> true
  */
 const isNegativeOrOdd = (value) => {
-    return value%2!==0 || value<0 ? true : false
-}
 
+  return if(value < 0 || value %2 !==0)
+}
+// isNegativeOrOdd('')
+// isNegativeOrOdd(-2)
 /**
  * Returns boolean of whether argument is classified as an Array object
  * @param {array} value     Array or other value
@@ -23,9 +25,10 @@ const isNegativeOrOdd = (value) => {
  * isArray([0,3,6,9]); → true
  */
 const isArray = (value) => {
-    return Array.isArray(value) ? true : false
+  return Array.isArray(value)
 }
-
+// isArray([0,3,6,9])
+// isArray(2)
 /**
  * Returns boolean of whether argument is classified as an Object
  * @param {object} value    Object or other value
@@ -37,9 +40,10 @@ const isArray = (value) => {
  * isObject([2,4,6,8]); → true
  */
 const isObject = (value) => {
-    return typeof value === 'object' ? true : false
-}
+  return (typeof value === "object")
 
+}
+// isObject([2,4,6,8]) //in the []
 /**
  * Returns a string that is the reverse of the inputted string.
  * @param {string} str       String
@@ -50,12 +54,9 @@ const isObject = (value) => {
  * reverseString('string') -> 'gnirts';
  */
 const reverseString = (str) => {
-    let newStr = ""
-    for (let char=str.length-1; char>=0; char--) {
-        newStr+=str[char]
-    }
-    return newStr
+  return value.split("").reverse().join("");
 }
+// reverseString('string') // simple reverse string; split each character, reverse splited and then join back.
 
 /**
  * Returns a new object with key and values switched
@@ -67,13 +68,14 @@ const reverseString = (str) => {
  * reverseObject({a: 1, b: true, z: []}) -> { 1: 'a', true: 'b', '': 'z' } 
  */
 const reverseObject = (object) => {
-    let newObject = {}
-    for (let key in object) {
-        newObject[object[key]] = key
-    }
-    return newObject
+      let result = {};
+  for(let key in object){
+    result[object[key]] = key; // object become key and key become value 
+    
+  }
+  return result;
 }
-
+// console.log(reverseObject({a: 1, b: true, z: []}))
 /**
  * Creates a shallow clone of an object.
  * @param {collection} value        Array or Object
@@ -87,13 +89,12 @@ const reverseObject = (object) => {
  * shallowClone[0] === users[0] → true
  */
 const clone = (value) => {
-    let newObject = []
-    for (let user in value) {
-        newObject.push(value[user])
-    }
-    return newObject
+return {...value}
 }
-
+// const users = [{ 'user': 'barney' },{ 'user': 'fred' }]
+// const shallowClone = clone(users)
+// console.log(shallowClone === users)
+// console.log(shallowClone[0] === users[0])
 /**
  * Gets the index at which the first occurrence of value is found in array.
  * @param {array} array         Array
@@ -106,14 +107,9 @@ const clone = (value) => {
  * indexOf([{},'22',null], 5); → -1
  */
 const indexOf = (array, value) => {
-    let result
-    for (let data in array) {
-        if (array[data] === value) {
-            return data
-        }
-    }
+  return array.indexOf(value) // indexOf tells the which index it is from
 }
-
+// indexOf([true,28,3103], true)
 /**
  * Returns an array containing the elements from array1 that are not in array2
  * @param {array} array1        Array
@@ -125,9 +121,9 @@ const indexOf = (array, value) => {
  * difference([0,1,2,3,4,5],[3,5]); -> [0,1,2,4]
  */
 const difference = (array1, array2) => {
-
+  return array1.filter( el => !array2.includes(el)) // dont include ele form array2
 }
-
+// difference([0,1,2,3,4,5],[3,5]);
 /**
  * Iterates over elements of an array invoking callback for each element.
  * The callback is passed the element, the current index, and the entire array in that order.
@@ -141,9 +137,12 @@ const difference = (array1, array2) => {
  * forEach(['One', 'Two'], callback); → prints One,0,[One,Two] , Two,1,[One,Two]
  */
 const forEach = (array, cb) => {
-
+  for (let i = 0; i < array.length; i += 1) {
+    cb(array[i], i, array);
+  }
 }
-
+// const callback = (element, index, array) => console.log(element + "," + index + "," + array);
+// forEach(['One', 'Two'], callback); 
 /**
  * Creates an array of values by running each element in array through callback
  * The callback is passed the element, the current index, and the entire array in that order.
@@ -158,9 +157,14 @@ const forEach = (array, cb) => {
  * }); -> [24,30,60]
  */
 const map = (array, cb) => {
-
+  let arr = [];
+    for (var i = 0; i < array.length; i++)
+        arr.push(cb(array[i], i, array));
+    return arr;
 }
-
+  // map([8,10,20], function(element, index, array) {
+  //  return element * 3;
+  // });
 /**
  * Iterates over elements of collection returning an array of all the elements callback returns truthy for.
  * @param {collection} collection   Array or Object
@@ -177,9 +181,19 @@ const map = (array, cb) => {
  * }); → {a: 1, c: 3}
  */
 const filter = (collection, cb) => {
-
+  let arr = [];
+    for (var i = 0; i < collection.length; i++) {
+        if (cb.call(cb, collection[i], i, collection)) // .call control the value of the obj, in callback
+            arr.push(collection[i]);
+    }
+    return arr;
 }
-
+  // filter([1,2,3,4], function(element, index, array) {
+  //      return element % 2 === 0;
+  // }); 
+  //  filter({a: 1, b: 2,c: 3,d: 4}, function(value, key, collection) {
+  //      return value % 2 !== 0;
+  // })
 /**
  * Removes all elements from array that callback returns truthy for and returns an array of the 
  * remaining elements.
@@ -197,7 +211,12 @@ const filter = (collection, cb) => {
  * }); → {b:2, d:4}
  */
 const reject = (collection, cb) => {
-
+  let arr = [];
+    for (let i = 0; i < collection.length; i++) {
+        if (!cb.call(cb, collection[i], i, collection)) 
+            arr.push(collection[i])
+    }
+    return arr;
 }
 
 /**
@@ -210,9 +229,18 @@ const reject = (collection, cb) => {
  * uniq([10,20,10]); → [10,20]
  */
 const uniq = (array) => {
+let newArr = [];
+for (let i = 0; i < array.length; i++){
+  if(newArr.indexOf(array[i]) === -1) { //research = -1
+    newArr.push(array[i])
+  }
+} return newArr
 
+// or by using the Set constructor
+
+return [...new Set(array)];
 }
-
+// console.log(uniq([10,20,10,20,30,10]))
 /**
  * Remove leading and trailing whitespace removed.
  * @param {string} string           String
@@ -224,7 +252,9 @@ const uniq = (array) => {
  * trim('   SPARTAAA '); -> 'SPARTAAA'
  */
 const trim = (string) => {
-
+  // return string.replace(/ /g,'')
+  return string.trim()
+  // return string
 }
 
 /**
@@ -248,9 +278,28 @@ const trim = (string) => {
  * },'quote: '); → 'quote: this is SPARTA'
  */
 const reduce = (array, cb, start) => {
-
+    if (Array.isArray(array)) {
+    let acc;
+    if (start === undefined) {
+      acc = array[0];
+      array = array.slice(1);
+    }else {
+      acc = start;
+    }
+    array.forEach(function(el) {
+      acc = cb(acc, el);
+    });
+    return acc;
+  }
 }
 
+
+  // reduce([4,5], function(stored,current) {
+  //      return stored + current;
+  // });
+  // console.log(reduce(['this ', 'is SPARTA'], function(stored,current) {
+  //      return stored + current;
+  // },'quote: '))
 /**
  * Recursively flattens a nested array.
  * @param {array} array         Array of nested arrays
@@ -263,7 +312,7 @@ const reduce = (array, cb, start) => {
 const flattenArrayDeep = (array, result = []) => {
 
 }
-
+flattenArrayDeep([2, [4, 6, [8]]]);
 /**
  * Assigns own enumerable properties of source object(s) to the destination object
  * Subsequent sources overwrite property assignments of previous sources.
@@ -292,7 +341,7 @@ const extend = (...objects) => {
  * deepClone[0].user === users[0].user → true
  */
 const cloneObjectDeep = (value) => {
-
+  return JSON.parse(JSON.stringify(value));
 }
 
 /**
@@ -415,9 +464,5 @@ const before = (count, func) => {
  * arrayFactory(4, square); -> [0, 1, 4, 9]
  */
 const arrayFactory = (length, processor) => {
-    let array = []
-    for (let i=0; i<length; i++) {
-        array.push(processor(i))
-    }
-    return array
+
 }
