@@ -10,7 +10,8 @@
  */
 const isNegativeOrOdd = (value) => {
 
-  return if(value < 0 || value %2 !==0)
+  return value < 0 || value % 2 !== 0
+
 }
 // isNegativeOrOdd('')
 // isNegativeOrOdd(-2)
@@ -68,10 +69,11 @@ const reverseString = (str) => {
  * reverseObject({a: 1, b: true, z: []}) -> { 1: 'a', true: 'b', '': 'z' } 
  */
 const reverseObject = (object) => {
-      let result = {};
-  for(let key in object){
+  let result = {};
+  for (let key in object) {
     result[object[key]] = key; // object become key and key become value 
-    
+    console.log()
+
   }
   return result;
 }
@@ -89,7 +91,7 @@ const reverseObject = (object) => {
  * shallowClone[0] === users[0] → true
  */
 const clone = (value) => {
-return {...value}
+  return { ...value }
 }
 // const users = [{ 'user': 'barney' },{ 'user': 'fred' }]
 // const shallowClone = clone(users)
@@ -121,7 +123,7 @@ const indexOf = (array, value) => {
  * difference([0,1,2,3,4,5],[3,5]); -> [0,1,2,4]
  */
 const difference = (array1, array2) => {
-  return array1.filter( el => !array2.includes(el)) // dont include ele form array2
+  return array1.filter(el => !array2.includes(el)) // dont include ele form array2
 }
 // difference([0,1,2,3,4,5],[3,5]);
 /**
@@ -158,13 +160,13 @@ const forEach = (array, cb) => {
  */
 const map = (array, cb) => {
   let arr = [];
-    for (var i = 0; i < array.length; i++)
-        arr.push(cb(array[i], i, array));
-    return arr;
+  for (var i = 0; i < array.length; i++)
+    arr.push(cb(array[i], i, array));
+  return arr;
 }
-  // map([8,10,20], function(element, index, array) {
-  //  return element * 3;
-  // });
+// map([8,10,20], function(element, index, array) {
+//  return element * 3;
+// });
 /**
  * Iterates over elements of collection returning an array of all the elements callback returns truthy for.
  * @param {collection} collection   Array or Object
@@ -182,18 +184,18 @@ const map = (array, cb) => {
  */
 const filter = (collection, cb) => {
   let arr = [];
-    for (var i = 0; i < collection.length; i++) {
-        if (cb.call(cb, collection[i], i, collection)) // .call control the value of the obj, in callback
-            arr.push(collection[i]);
-    }
-    return arr;
+  for (var i = 0; i < collection.length; i++) {
+    if (cb.call(cb, collection[i], i, collection)) // .call control the value of the obj, in callback
+      arr.push(collection[i]);
+  }
+  return arr;
 }
-  // filter([1,2,3,4], function(element, index, array) {
-  //      return element % 2 === 0;
-  // }); 
-  //  filter({a: 1, b: 2,c: 3,d: 4}, function(value, key, collection) {
-  //      return value % 2 !== 0;
-  // })
+// filter([1,2,3,4], function(element, index, array) {
+//      return element % 2 === 0;
+// }); 
+//  filter({a: 1, b: 2,c: 3,d: 4}, function(value, key, collection) {
+//      return value % 2 !== 0;
+// })
 /**
  * Removes all elements from array that callback returns truthy for and returns an array of the 
  * remaining elements.
@@ -212,11 +214,11 @@ const filter = (collection, cb) => {
  */
 const reject = (collection, cb) => {
   let arr = [];
-    for (let i = 0; i < collection.length; i++) {
-        if (!cb.call(cb, collection[i], i, collection)) 
-            arr.push(collection[i])
-    }
-    return arr;
+  for (let i = 0; i < collection.length; i++) {
+    if (!cb.call(cb, collection[i], i, collection))
+      arr.push(collection[i])
+  }
+  return arr;
 }
 
 /**
@@ -229,16 +231,16 @@ const reject = (collection, cb) => {
  * uniq([10,20,10]); → [10,20]
  */
 const uniq = (array) => {
-let newArr = [];
-for (let i = 0; i < array.length; i++){
-  if(newArr.indexOf(array[i]) === -1) { //research = -1
-    newArr.push(array[i])
-  }
-} return newArr
+  let newArr = [];
+  for (let i = 0; i < array.length; i++) {
+    if (newArr.indexOf(array[i]) === -1) { //research = -1
+      newArr.push(array[i])
+    }
+  } return newArr
 
-// or by using the Set constructor
+  // or by using the Set constructor
 
-return [...new Set(array)];
+  return [...new Set(array)];
 }
 // console.log(uniq([10,20,10,20,30,10]))
 /**
@@ -278,12 +280,12 @@ const trim = (string) => {
  * },'quote: '); → 'quote: this is SPARTA'
  */
 const reduce = (array, cb, start) => {
-    if (Array.isArray(array)) {
+  if (Array.isArray(array)) {
     let acc;
     if (start === undefined) {
       acc = array[0];
       array = array.slice(1);
-    }else {
+    } else {
       acc = start;
     }
     array.forEach(function(el) {
@@ -294,12 +296,12 @@ const reduce = (array, cb, start) => {
 }
 
 
-  // reduce([4,5], function(stored,current) {
-  //      return stored + current;
-  // });
-  // console.log(reduce(['this ', 'is SPARTA'], function(stored,current) {
-  //      return stored + current;
-  // },'quote: '))
+// reduce([4,5], function(stored,current) {
+//      return stored + current;
+// });
+// console.log(reduce(['this ', 'is SPARTA'], function(stored,current) {
+//      return stored + current;
+// },'quote: '))
 /**
  * Recursively flattens a nested array.
  * @param {array} array         Array of nested arrays
